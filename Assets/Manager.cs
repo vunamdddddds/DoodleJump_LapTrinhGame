@@ -37,7 +37,6 @@ public class Manager : MonoBehaviour
     public TextMeshProUGUI itemListText;
 
 
-
     void Start()
     {
         // Tải dữ liệu cũ khi game bắt đầu

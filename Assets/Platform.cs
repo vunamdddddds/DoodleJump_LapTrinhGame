@@ -7,7 +7,6 @@ public class Platform : MonoBehaviour
 
 	public float jumpForce;
 
-	private bool isScored = false; // Biến để kiểm tra xem điểm số đã được cộng chưa
 	void Start()
 	{
 	}

@@ -1,32 +1,58 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
     public float movementSpeed = 10f;
     private Rigidbody2D rb;
+    private float highPosition;
 
-    public GameObject PlayerManager;
-    private float highPosition; // Biến để lưu vị trí cao nhất của nhân vật
-
-
+    private float tiltInput;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        highPosition = transform.position.y; // Lưu vị trí cao nhất ban đầu của nhân vật
+        highPosition = transform.position.y;
+
+        // Kích hoạt cảm biến gia tốc nếu có
+        if (Accelerometer.current != null)
+        {
+            InputSystem.EnableDevice(Accelerometer.current);
+        }
     }
 
-
-
-    void FixedUpdate() // Sử dụng FixedUpdate để xử lý vật lý==> tránh việc bỏ sót input khi frame rate thấp
+    void Update()
     {
-        float movement = Input.acceleration.x * movementSpeed;
+        float keyboardTilt = 0f;
+        float accelTilt = 0f;
+
+        // 1. Lấy input từ bàn phím (nếu có InputSystem_Actions)
+        if (Keyboard.current != null)
+        {
+            if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) keyboardTilt = -1f;
+            else if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) keyboardTilt = 1f;
+        }
+
+        // 2. Lấy input từ cảm biến nghiêng (Điện thoại)
+        if (Accelerometer.current != null)
+        {
+            accelTilt = Accelerometer.current.acceleration.ReadValue().x;
+        }
+
+        // Ưu tiên bàn phím nếu đang nhấn, nếu không thì dùng cảm biến nghiêng
+        tiltInput = Mathf.Abs(keyboardTilt) > 0.1f ? keyboardTilt : accelTilt;
+
+        // Deadzone cho cảm biến nghiêng
+        if (Mathf.Abs(tiltInput) < 0.05f) tiltInput = 0f;
+    }
+
+    void FixedUpdate()
+    {
         Vector2 velocity = rb.linearVelocity;
-        velocity.x = movement;
+        // Sử dụng Lerp để di chuyển mượt mà hơn
+        velocity.x = Mathf.Lerp(velocity.x, tiltInput * movementSpeed, 0.2f);
         rb.linearVelocity = velocity;
-
-
 
         CalculateScore();
     }
@@ -37,7 +63,7 @@ public class Player : MonoBehaviour
         {
             float diff = transform.position.y - highPosition;
 
-            if (diff >= 1f) // mỗi 1 đơn vị chiều cao
+            if (diff >= 1f)
             {
                 int add = Mathf.FloorToInt(diff) * 10;
                 GamePlayManager.curScore += add;
@@ -48,12 +74,9 @@ public class Player : MonoBehaviour
                     saveData.playerContainer.players[0].highScore = GamePlayManager.curScore;
                     saveData.Save();
                 }
-                Debug.Log("Score: " + GamePlayManager.curScore);
             }
-
         }
     }
-
 
     void OnTriggerEnter2D(Collider2D other)
     {

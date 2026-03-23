@@ -31,6 +31,13 @@ public class GamePlayManager : MonoBehaviour
 
     public TextMeshProUGUI MoneyEarnedGameOverText;
 
+// game win 
+ public TextMeshProUGUI highScoreTextGameWin;
+    public TextMeshProUGUI moneyTextGameWin;
+
+    public TextMeshProUGUI ScoreTextGameWin;
+
+
 // game Pause
 
  
@@ -135,9 +142,9 @@ public void pauseGame()
         int moneyEarned = curScore / 10; // Ví dụ: mỗi 100 điểm được 1 tiền
         saveData.playerContainer.players[0].money += moneyEarned;
         saveData.Save();
-        ScoreGameOverText.text = curScore.ToString();
-        HighScoreGameOverText.text = saveData.playerContainer.players[0].highScore.ToString();
-        MoneyEarnedGameOverText.text = moneyEarned.ToString();
+        ScoreTextGameWin.text = curScore.ToString();
+        highScoreTextGameWin.text = saveData.playerContainer.players[0].highScore.ToString();
+        moneyTextGameWin.text = moneyEarned.ToString();
         gameWinPanel.SetActive(true);
     }
 
