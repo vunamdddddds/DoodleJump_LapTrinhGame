@@ -1,0 +1,442 @@
+fileFormatVersion: 2
+guid: f1c646b88b022cd43bc72eb2078f641c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1167216447874813418
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_0"
+  - first:
+      213: -469813715349115760
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_1"
+  - first:
+      213: 994385651223906368
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_2"
+  - first:
+      213: 1249445572114319793
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_3"
+  - first:
+      213: -384368377103117845
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_4"
+  - first:
+      213: -7395301608554582837
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_5"
+  - first:
+      213: -8170618824990589950
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_6"
+  - first:
+      213: -45637722159651388
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_7"
+  - first:
+      213: -8997139347332764167
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_8"
+  - first:
+      213: 6932786436097950047
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_9"
+  - first:
+      213: 689966581556337429
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_10"
+  - first:
+      213: 1443574934459276503
+    second: "\u2014Pngtree\u2014game button sets play pause_6048931_11"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_0"
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 850
+        width: 178
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed4297dc29c23010800000000000000
+      internalID: 1167216447874813418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_1"
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 850
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09c62024ae2ea79f0800000000000000
+      internalID: -469813715349115760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_2"
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 850
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04842f63b74cccd00800000000000000
+      internalID: 994385651223906368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_3"
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 617
+        width: 178
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b90f04c02ce65110800000000000000
+      internalID: 1249445572114319793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_4"
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 617
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be110eb5ff27aaaf0800000000000000
+      internalID: -384368377103117845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_5"
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 617
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bccaa377e5c9e5990800000000000000
+      internalID: -7395301608554582837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_6"
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 384
+        width: 178
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20cf05de7712c9e80800000000000000
+      internalID: -8170618824990589950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_7"
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 384
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c5e056cbbcdd5ff0800000000000000
+      internalID: -45637722159651388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_8"
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 384
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd6a87be6db32380800000000000000
+      internalID: -8997139347332764167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_9"
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 151
+        width: 178
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f51c34b3884363060800000000000000
+      internalID: 6932786436097950047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_10"
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 151
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51b5e8843f0439900800000000000000
+      internalID: 689966581556337429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014game button sets play pause_6048931_11"
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 151
+        width: 177
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dc5a1721cb980410800000000000000
+      internalID: 1443574934459276503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "\u2014Pngtree\u2014game button sets play pause_6048931_0": 1167216447874813418
+      "\u2014Pngtree\u2014game button sets play pause_6048931_1": -469813715349115760
+      "\u2014Pngtree\u2014game button sets play pause_6048931_10": 689966581556337429
+      "\u2014Pngtree\u2014game button sets play pause_6048931_11": 1443574934459276503
+      "\u2014Pngtree\u2014game button sets play pause_6048931_2": 994385651223906368
+      "\u2014Pngtree\u2014game button sets play pause_6048931_3": 1249445572114319793
+      "\u2014Pngtree\u2014game button sets play pause_6048931_4": -384368377103117845
+      "\u2014Pngtree\u2014game button sets play pause_6048931_5": -7395301608554582837
+      "\u2014Pngtree\u2014game button sets play pause_6048931_6": -8170618824990589950
+      "\u2014Pngtree\u2014game button sets play pause_6048931_7": -45637722159651388
+      "\u2014Pngtree\u2014game button sets play pause_6048931_8": -8997139347332764167
+      "\u2014Pngtree\u2014game button sets play pause_6048931_9": 6932786436097950047
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
