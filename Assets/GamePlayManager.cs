@@ -28,6 +28,9 @@ public class GamePlayManager : MonoBehaviour
 
     public GameObject springShoePlayer;
 
+    // khai báo camera ==> game win vs game over ==> disable : camera tranh loi khi player bi destroy
+    public GameObject cameraFollow;
+
     public GameObject gameWinPanel;
     public TextMeshProUGUI curScoreText;
     //game over panel
@@ -175,7 +178,8 @@ public void pauseGame()
     public void GameOver()
     {        
          Destroy(player);// hủy đối tượng player khi game over
-       Sfx(EnumSfxType.GameOver);
+        cameraFollow.SetActive(false);
+         Sfx(EnumSfxType.GameOver);
         if (curScore > highScoreGamePlay)
         {
             saveData.playerContainer.players[0].highScore = curScore;
@@ -197,6 +201,7 @@ public void pauseGame()
     public void GameWin()
     {  
      Destroy(player);// hủy đối tượng player khi game over
+               cameraFollow.SetActive(false);
        Sfx(EnumSfxType.WinGame);
         if (curScore >highScoreGamePlay )
         {
@@ -267,7 +272,7 @@ public void pauseGame()
         progressSlider.value = 0;
         LoaderUI.SetActive(true);
  
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(1);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(index);
         asyncOperation.allowSceneActivation = false;
         float progress = 0;
  

@@ -797,7 +797,6 @@ GameObject:
   m_Component:
   - component: {fileID: 113452230}
   - component: {fileID: 113452229}
-  - component: {fileID: 113452228}
   - component: {fileID: 113452231}
   - component: {fileID: 113452232}
   m_Layer: 0
@@ -807,14 +806,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &113452228
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113452227}
-  m_Enabled: 1
 --- !u!20 &113452229
 Camera:
   m_ObjectHideFlags: 0
@@ -15865,6 +15856,7 @@ GameObject:
   - component: {fileID: 1831038858}
   - component: {fileID: 1831038857}
   - component: {fileID: 1831038859}
+  - component: {fileID: 1831038860}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -15890,6 +15882,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 76115475}
   gamePausePanel: {fileID: 1345147808}
   springShoePlayer: {fileID: 679832011}
+  cameraFollow: {fileID: 113452227}
   gameWinPanel: {fileID: 249316547}
   curScoreText: {fileID: 202414463}
   ScoreGameOverText: {fileID: 2044758836}
@@ -16023,6 +16016,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &1831038860
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831038856}
+  m_Enabled: 1
 --- !u!1 &1865018840
 GameObject:
   m_ObjectHideFlags: 0
