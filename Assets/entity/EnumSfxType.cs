@@ -3,5 +3,12 @@ public enum EnumSfxType
 {
     Spring,
     GroundGreen,
-    GroundBlue
+    GroundBlue,
+
+    Trampoline,
+
+    WinGame,
+
+    GameOver,
+    GrountCrash
 }

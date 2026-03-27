@@ -14,6 +14,8 @@ TagManager:
   - GroundBlue
   - BodyEnemy
   - WinPoint
+  - Trampoline
+  - GrountCrash
   layers:
   - Default
   - TransparentFX

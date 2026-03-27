@@ -57,6 +57,8 @@ public class Player : MonoBehaviour
         CalculateScore();
     }
 
+
+
     private void CalculateScore()
     {
         if (transform.position.y > highPosition)
@@ -68,18 +70,19 @@ public class Player : MonoBehaviour
                 int add = Mathf.FloorToInt(diff) * 10;
                 GamePlayManager.curScore += add;
                 highPosition = transform.position.y;
-                if (GamePlayManager.curScore > saveData.playerContainer.players[0].highScore)
-                {
-                    GamePlayManager.instance.highScoreText.text = GamePlayManager.curScore.ToString();
-                    saveData.playerContainer.players[0].highScore = GamePlayManager.curScore;
-                    saveData.Save();
+                if (GamePlayManager.curScore > GamePlayManager.highScoreGamePlay) // nếu điểm hiện tại > điểm cao nhất 
+                {GamePlayManager.highScoreGamePlay = GamePlayManager.curScore; // cập nhật biến cao nhất tạm thời bằng biến hiện tại 
                 }
             }
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
-    {
+    {        
+        if (other.gameObject.CompareTag("SpringShoe"))
+        {
+         GamePlayManager.instance.SpringShoeBoot(other);
+        }
         GamePlayManager.instance.ChangeTopTheme(other);
     }
 
@@ -92,7 +95,9 @@ public class Player : MonoBehaviour
         if (collision.collider.CompareTag("WinPoint"))
         {
             GamePlayManager.instance.GameWin();
+            
         }
+        
     }
 }
 

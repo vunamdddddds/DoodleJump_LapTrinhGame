@@ -7,11 +7,21 @@ public class Platform : MonoBehaviour
 
 	public float jumpForce;
 
+	    private Animator GrountCrashAnim;
+
+	public static int springShoeBootValue=0;
+
 	void Start()
 	{
+		if (tag=="GrountCrash")
+		{
+			    GrountCrashAnim=GetComponent<Animator>();    
+		}
 	}
 	void OnCollisionEnter2D(Collision2D collision)
 	{
+
+
 		if (collision.relativeVelocity.y <= 0f)//kiểm tra nếu nhân vật đang rơi xuống
 		{
 			// 
@@ -20,13 +30,24 @@ public class Platform : MonoBehaviour
 			{
 				DeliverSfx();
 				Vector2 velocity = rb.linearVelocity;
-				velocity.y = jumpForce;
+				velocity.y = jumpForce+springShoeBootValue;
 				rb.linearVelocity = velocity;
 
 			}
+			if (tag=="GrountCrash")
+			{
+				 if (collision.gameObject.CompareTag("Player"))
+        {
+         
+            GrountCrashAnim.SetTrigger("BreakTrigger");
+			DeliverSfx();
+            Destroy(gameObject, 0.18f); 
+        }  
+			}
+
+			
 		}
 	}
-
 
 	private void DeliverSfx()
 	{
@@ -42,6 +63,15 @@ public class Platform : MonoBehaviour
 			case "Spring":
 				GamePlayManager.instance.Sfx(EnumSfxType.Spring);
 				break;
+			case "Trampoline":
+				GamePlayManager.instance.Sfx(EnumSfxType.Trampoline);
+				break;	
+			case "WinPoint":
+				GamePlayManager.instance.Sfx(EnumSfxType.WinGame);
+				break;
+			case "GrountCrash":
+				GamePlayManager.instance.Sfx(EnumSfxType.GrountCrash);
+				break;	
 			default:
 				break;
 		}

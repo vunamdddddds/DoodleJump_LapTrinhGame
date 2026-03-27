@@ -16,4 +16,6 @@ public class Enemy : MonoBehaviour
         float x = startX + Mathf.PingPong(Time.time * speed, range * 2) - range;
         transform.position = new Vector3(x, transform.position.y, transform.position.z);
     }
+
+   
 }

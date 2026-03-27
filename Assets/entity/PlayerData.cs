@@ -16,6 +16,8 @@ public class PlayerData
     public List<scoreRecord> scoreHistory ;
 
     public List<int> ownedItems;
+
+    public int currentItems;
   
 
 }
