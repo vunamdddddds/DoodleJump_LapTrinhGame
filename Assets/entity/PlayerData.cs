@@ -18,6 +18,10 @@ public class PlayerData
     public List<int> ownedItems;
 
     public int currentItems;
+
+    public bool removeADsStatus;
+
+    public int LevelCur;
   
 
 }

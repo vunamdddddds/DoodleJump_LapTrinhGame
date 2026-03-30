@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    public float movementSpeed = 10f;
+    public float movementSpeed ;
     private Rigidbody2D rb;
     private float highPosition;
 
@@ -70,9 +70,6 @@ public class Player : MonoBehaviour
                 int add = Mathf.FloorToInt(diff) * 10;
                 GamePlayManager.curScore += add;
                 highPosition = transform.position.y;
-                if (GamePlayManager.curScore > GamePlayManager.highScoreGamePlay) // nếu điểm hiện tại > điểm cao nhất 
-                {GamePlayManager.highScoreGamePlay = GamePlayManager.curScore; // cập nhật biến cao nhất tạm thời bằng biến hiện tại 
-                }
             }
         }
     }
@@ -83,7 +80,6 @@ public class Player : MonoBehaviour
         {
          GamePlayManager.instance.SpringShoeBoot(other);
         }
-        GamePlayManager.instance.ChangeTopTheme(other);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

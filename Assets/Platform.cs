@@ -7,7 +7,7 @@ public class Platform : MonoBehaviour
 
 	public float jumpForce;
 
-	    private Animator GrountCrashAnim;
+	    private Animator GrountCrashAnim; // biến riêng cho đất bị vỡ 
 
 	public static int springShoeBootValue=0;
 
@@ -31,6 +31,7 @@ public class Platform : MonoBehaviour
 				DeliverSfx();
 				Vector2 velocity = rb.linearVelocity;
 				velocity.y = jumpForce+springShoeBootValue;
+				Debug.Log("velocity.y:"+velocity.y+"springShoeBootValue:"+springShoeBootValue);
 				rb.linearVelocity = velocity;
 
 			}

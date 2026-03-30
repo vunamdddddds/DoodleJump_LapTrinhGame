@@ -15,8 +15,8 @@ public class Manager : MonoBehaviour
 
     void Awake()
     {
-        
-        instance=this;
+
+        instance = this;
     }
     public GameObject musicOnButton;
     public GameObject musicOffButton;
@@ -27,6 +27,8 @@ public class Manager : MonoBehaviour
     public GameObject CollectionPanel;
 
     public GameObject scoreHistoryPanel;
+
+    public GameObject RemoveADsPanel;
 
     public GameObject FormInputPanel;
 
@@ -42,38 +44,97 @@ public class Manager : MonoBehaviour
 
     public TextMeshProUGUI highScoreText;
 
-// store
+    // store
     public TextMeshProUGUI moneyText;
 
 
     public TextMeshProUGUI infomationItem;
 
     public GameObject ItemPanel;
-   
 
-// biến Hard Code Items;
+    // thông báo mua hàng 
+    public GameObject BuySuscessText;
+    public GameObject ItemAlreadyOwnText;
 
-  public GameObject GhostSkinDisplay; //id==1
-  public GameObject DiverSkinDisplay;// id ==2
+    public GameObject BuyFalseText;
 
-  public GameObject InuitSkinDisplay; // id ==3
-  public GameObject  AstronautSkinDisplay;//id ==4
+    private Coroutine currentCoroutine;
+
+    // thông báo đổi trang phục (item)
+
+    public GameObject ChangeItemSusscess;
 
 
-// biến static
-    public static string userName="";
+
+    // biến Hard Code Items;
+
+    public GameObject GhostSkinDisplay; //id==1
+    public GameObject DiverSkinDisplay;// id ==2
+
+    public GameObject InuitSkinDisplay; // id ==3
+    public GameObject AstronautSkinDisplay;//id ==4
+
+    public GameObject GhostSkinItem;
+    public GameObject DiverSkinItem;
+    public GameObject InuitSkinItem;
+    public GameObject AstronautSkinItem;
+
+    // Skin At Main 
+    public GameObject DiverSkinAtMain;
+    public GameObject GhostSkinAtMain;
+    public GameObject InuitSkinAtMain;
+    public GameObject AstronautSkinAtMain;
+    public GameObject DefaultSkinAtMain;
+
+
+    // choose level
+    public GameObject chooseLevelPanel;
+
+    public List<GameObject> levelButtonList;
+
+    // khai báo tên coint item trong store
+
+    public TextMeshProUGUI GhostTitle;
+    public TextMeshProUGUI CointGhost;
+    // inuit
+    public TextMeshProUGUI InuintTile;
+    public TextMeshProUGUI CointInuint;
+
+    // Diver
+    public TextMeshProUGUI DiverTile;
+    public TextMeshProUGUI DiverCoint;
+
+    // Astronaut
+    public TextMeshProUGUI AstronautTitle;
+    public TextMeshProUGUI AstronautCoint;
+
+
+
+
+    public static int ItemDinhMua = 0;
+
+
+
+
+    // biến static
+    public static string userName = "";
 
     public static int coint = 0;
 
-    public static int highScore=0;
+    public static int highScore = 0;
+
+    public static bool removeADsStatus = false;
+
+    public static int LevelCur;
 
 
-// dùng biến tĩnh làm idItem
-    public static int ItemID=0;
+    // dùng biến tĩnh làm idItem
+    public static int ItemID = 0;
 
-// khai báo 2 biến loading
- public GameObject LoaderUI;
+    // khai báo 2 biến loading
+    public GameObject LoaderUI;
     public Slider progressSlider;
+
 
 
     void Start()
@@ -90,27 +151,78 @@ public class Manager : MonoBehaviour
             FormInputPanel.SetActive(false);
             DisplayPlayerInfo();// Hiển thị thông tin người chơi
             DisplayItemsForPlayer();
+            DisplayTileAndPriceItemsInStore();
+            DisplaySettingForPlayer();
+            displaySkinAtMain();
+          
         }
 
+    }
+
+    public void chooseLevel()
+    {
+        chooseLevelPanel.SetActive(!chooseLevelPanel.activeSelf);
+        //display 
+
+        disPlaychooseLevelForPlayer();
+    }
+
+
+
+    public void chooseLevelHandle(int index)
+    {
+        LoadScene(index);
+    }
+
+    void disPlaychooseLevelForPlayer()
+    {
+        int cur = 0;
+        foreach (GameObject level in levelButtonList)
+        {
+            if (cur < LevelCur)
+            {
+                level.SetActive(false);
+                cur++;
+            }
+
+        }
+
+
+    }
+
+
+
+    // hàm xử lí xoá quảng cáo 
+    public void RemoveADs()
+    {
+        RemoveADsPanel.SetActive(!RemoveADsPanel.activeSelf);
+    }
+
+    public void RemoveAdsHadle()
+    {
+
+        saveData.playerContainer.players[0].removeADsStatus = true;
+        saveData.Save();
+        Banner.instance.RemoveBanner();
     }
 
 
 
     public void LoadScene(int sceneIndex)
     {
-       StartCoroutine(LoadScene_Coroutine(sceneIndex));
+        StartCoroutine(LoadScene_Coroutine(sceneIndex));
     }
 
-// hàm loading 
- public IEnumerator LoadScene_Coroutine(int index)
+    // hàm loading 
+    public IEnumerator LoadScene_Coroutine(int index)
     {
         progressSlider.value = 0;
         LoaderUI.SetActive(true);
- 
+
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(index);
         asyncOperation.allowSceneActivation = false;
         float progress = 0;
- 
+
         while (!asyncOperation.isDone)
         {
             progress = Mathf.MoveTowards(progress, asyncOperation.progress, Time.deltaTime);
@@ -127,62 +239,153 @@ public class Manager : MonoBehaviour
 
 
 
-//Store
+    // hàm hiển thị setting của người chơi
+    public void DisplaySettingForPlayer()
+    {
+        Setting setting = saveData.settingContainer.setting;
 
+        if (setting != null)
+        {
+            // musicBG status 
+            if (setting.musicbgStatus == true)
+            {
+                musicOnButton.SetActive(true);
+                musicOffButton.SetActive(false);
+                audioSource.Play();
+            }
+            else
+            {
+                musicOnButton.SetActive(false);
+                musicOffButton.SetActive(true);
+                audioSource.Pause();
+            }
+        }
 
+    }
+    //Store
 
+    public void DisplayTileAndPriceItemsInStore()
+    {
+        List<Items> itemList = saveData.itemContainer.items;
+        foreach (Items item in itemList)
+        {
+            switch (item.idItem)
+            {
+                case 1:
+                    GhostTitle.text = item.nameItem;
+                    CointGhost.text = item.price.ToString();
+                    break;
+                case 2:
+                    DiverTile.text = item.nameItem;
+                    DiverCoint.text = item.price.ToString();
+
+                    break;
+                case 3:
+                    InuintTile.text = item.nameItem;
+                    CointInuint.text = item.price.ToString();
+                    break;
+                case 4:
+                    AstronautTitle.text = item.nameItem;
+                    AstronautCoint.text = item.price.ToString();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public void DisPlayItem(int idItem)
     {
-     Items item = saveData.itemContainer.items[idItem-1];
-infomationItem.text=$"Name:{item.nameItem.ToString()}\n Price:{item.price.ToString()} coin\n Description:{item.description.ToString()} \n"; 
-ItemPanel.SetActive(true);
+        Items item = saveData.itemContainer.items[idItem - 1];
+        infomationItem.text = $"Name:{item.nameItem.ToString()}\n Price:{item.price.ToString()} coin\n Description:{item.description.ToString()} \n";
+        ItemPanel.SetActive(true);
+        switch (idItem)
+        {
+            case 1:
+                GhostSkinItem.SetActive(true);
+                break;
+            case 2:
+                DiverSkinItem.SetActive(true);
+                break;
+            case 3:
+                InuitSkinItem.SetActive(true);
+                break;
+            case 4:
+                AstronautSkinItem.SetActive(true);
+                break;
+            default:
+                break;
+        }
+        ItemDinhMua = idItem;
     }
 
     public void Item()
-    {ItemPanel.SetActive(!ItemPanel.activeSelf);
+    {
+        ItemPanel.SetActive(!ItemPanel.activeSelf);
+        switch (ItemDinhMua)
+        {
+            case 1:
+                GhostSkinItem.SetActive(false);
+                break;
+            case 2:
+                DiverSkinItem.SetActive(false);
+                break;
+            case 3:
+                InuitSkinItem.SetActive(false);
+                break;
+            case 4:
+                AstronautSkinItem.SetActive(false);
+                break;
+            default:
+                break;
+        }
+        ItemDinhMua = 0;
+
     }
-   
 
-// hàm hiển thị  collection
 
-public void Collection()
+    // hàm hiển thị  collection
+
+
+
+    public void Collection()
     {
         CollectionPanel.SetActive(!CollectionPanel.activeSelf);
     }
+
+    // hàm này hiện thị những item mà người chơi đã sở hữu trong collition 
     private void DisplayItemsForPlayer()
     {
-        PlayerData playerData =saveData.playerContainer.players[0];
-        List<Items> itemList=saveData.itemContainer.items;
-  ItemID=playerData.currentItems;  //trích xuất biến ItemId vào màn chơi
-   foreach (int itemID in playerData.ownedItems)
-   {
-    foreach (Items item in itemList)
-    {
-        if (itemID==item.idItem)
+        PlayerData playerData = saveData.playerContainer.players[0];
+        List<Items> itemList = saveData.itemContainer.items;
+        foreach (int itemID in playerData.ownedItems)
         {
-           switch (itemID)
-           {
-            case 1 : 
-            GhostSkinDisplay.SetActive(true);
-            break;
+            foreach (Items item in itemList)
+            {
+                if (itemID == item.idItem)
+                {
+                    if (itemID == 1)
+                    {
+                        GhostSkinDisplay.SetActive(true);
 
-            case 2 :
-            DiverSkinDisplay.SetActive(true);
-            break;
+                    }
+                    else if (itemID == 2)
+                    {
+                        DiverSkinDisplay.SetActive(true);
 
-            case 3 :
-            InuitSkinDisplay.SetActive(true);
-            break;
+                    }
+                    else if (itemID == 3)
+                    {
+                        InuitSkinDisplay.SetActive(true);
 
-            case 4 :
-            AstronautSkinDisplay.SetActive(true);
-            break;
-            default:
-            break;
-           }
+                    }
+                    else if (itemID == 4)
+                    {
+                        AstronautSkinDisplay.SetActive(true);
+
+                    }
+                }
+            }
         }
-    }
-   }
 
 
     }
@@ -194,25 +397,78 @@ public void Collection()
 
         foreach (Items item in saveData.itemContainer.items)
         {
-            if (item.idItem==idItem)
+            if (item.idItem == idItem)
             {
-                ItemID=idItem;
-                 saveData.playerContainer.players[0].currentItems=idItem;
-                 saveData.Save();
-                Debug.Log("Da doi Item co id la:"+idItem);
+                ItemID = idItem; // đổi biến tĩnh thành item hiện tại 
+                saveData.playerContainer.players[0].currentItems = idItem;
+                saveData.Save();
+                DisplayNotify(ChangeItemSusscess);
+                displaySkinAtMain();
+                Debug.Log("Da doi Item co id la:" + idItem);
             }
-           
+
         }
     }
 
 
-     public void PurchaseItem()
+//hàm xử lí hiển thị skin ở main (hard data)
+    private void displaySkinAtMain()
     {
+        switch (ItemID)
+        {
+            case 1:
+                GhostSkinAtMain.SetActive(true);
+                DiverSkinAtMain.SetActive(false);
+                InuitSkinAtMain.SetActive(false);
+                AstronautSkinAtMain.SetActive(false);
+                DefaultSkinAtMain.SetActive(false);
+                break;
+            case 2:
+                GhostSkinAtMain.SetActive(false);
+                DiverSkinAtMain.SetActive(true);
+                InuitSkinAtMain.SetActive(false);
+                AstronautSkinAtMain.SetActive(false);
+                                DefaultSkinAtMain.SetActive(false);
+
+                break;
+            case 3:
+                GhostSkinAtMain.SetActive(false);
+                DiverSkinAtMain.SetActive(false);
+                InuitSkinAtMain.SetActive(true);
+                AstronautSkinAtMain.SetActive(false);
+                                DefaultSkinAtMain.SetActive(false);
+
+                break;
+            case 4:
+                GhostSkinAtMain.SetActive(false);
+                DiverSkinAtMain.SetActive(false);
+                InuitSkinAtMain.SetActive(false);
+                AstronautSkinAtMain.SetActive(true);
+                                DefaultSkinAtMain.SetActive(false);
+
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+
+    // ham mua item 
+
+    public void PrePurchaseItem()
+    {
+        PurchaseItem(ItemDinhMua);
+    }
+    public void PurchaseItem(int idItem)
+    {
+
         // Tìm item trong danh sách
         Items itemToPurchase = null;
         foreach (Items item in saveData.itemContainer.items)
         {
-            if (item.idItem == ItemID)
+            if (item.idItem == idItem)
             {
                 itemToPurchase = item;
                 break;
@@ -225,55 +481,76 @@ public void Collection()
         }
         // Kiểm tra tiền của người chơi
         PlayerData player = saveData.playerContainer.players[0]; // Lấy dữ liệu người chơi đầu tiên
-        //kiểm tra người chơi có vật phẩm chưa 
-       foreach (int item in player.ownedItems)
-       {
-        if (item == ItemID)
+                                                                 //kiểm tra người chơi có vật phẩm chưa 
+        foreach (int item in player.ownedItems)
         {
-            Debug.Log("You have alredy this Item");
-            return;
+            if (item == idItem)
+            {
+                Debug.Log("You have alredy this Item");
+                DisplayNotify(ItemAlreadyOwnText);
+                return;
+            }
         }
-       }
         if (player.money >= itemToPurchase.price)
         {
             player.money -= itemToPurchase.price; // Trừ tiền
-            player.ownedItems.Add(ItemID); // Thêm vào danh sách vật phẩm đã sở hữu
+            player.ownedItems.Add(idItem); // Thêm vào danh sách vật phẩm đã sở hữu
             saveData.Save(); // Lưu lại dữ liệu sau khi mua
-            moneyText.text = player.money.ToString(); // Cập nhật hiển thị tiền
+            moneyText.text = player.money.ToString(); // Cập nhật hiển thị tiền gốc 
             Debug.Log("Item purchased: " + itemToPurchase.nameItem);
+            DisplayNotify(BuySuscessText);
         }
         else
         {
             Debug.Log("Not enough money to purchase this item.");
+            DisplayNotify(BuyFalseText);
         }
 
     }
 
+    public void DisplayNotify(GameObject obj)
+    {
+
+        obj.SetActive(true);
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+        }
+        currentCoroutine = StartCoroutine(DisplayNotifyCountTime(obj));
+    }
+
+    IEnumerator DisplayNotifyCountTime(GameObject obj)
+    {
+        yield return new WaitForSeconds(2f);
+        obj.SetActive(false);
+        currentCoroutine = null; // reset lại trạng thái
+
+    }
 
 
     private void DisplayPlayerInfo()
     {
-        if (saveData.playerContainer.players.Count > 0)
+
+        PlayerData player = saveData.playerContainer.players[0]; // Lấy dữ liệu người chơi đầu tiên
+        playerNameText.text = player.playerName;
+        moneyText.text = player.money.ToString();
+        highScoreText.text = player.highScore.ToString();
+        // Hiển thị lịch sử điểm số
+        List<String> scoreHistory = getScoreHistoryForPlayer(player);
+        foreach (String record in scoreHistory)
         {
-            PlayerData player = saveData.playerContainer.players[0]; // Lấy dữ liệu người chơi đầu tiên
-            playerNameText.text = player.playerName;
-            moneyText.text = player.money.ToString();
-            highScoreText.text = player.highScore.ToString();
-        
-
-            // Hiển thị lịch sử điểm số
-            List<String> scoreHistory = getScoreHistoryForPlayer(player);
-            foreach (String record in scoreHistory)
-            {
-                scoreHistoryText.text += record + "\n";
-            }
-    
-            userName=player.playerName;
-            coint=player.money;
-            highScore=player.highScore;
-
-
+            scoreHistoryText.text += record + "\n";
         }
+
+        // chưa biết để làm gì 
+        userName = player.playerName;
+        coint = player.money;
+
+        highScore = player.highScore;
+        // cái này thì dùng làm truyền cho các scence khác 
+        removeADsStatus = player.removeADsStatus;
+        LevelCur = player.LevelCur;
+        ItemID = player.currentItems;
     }
 
 
@@ -303,13 +580,16 @@ public void Collection()
             musicOnButton.SetActive(false);
             musicOffButton.SetActive(true);
             audioSource.Pause();
+            saveData.settingContainer.setting.musicbgStatus = false;
         }
         else
         {
             musicOnButton.SetActive(true);
             musicOffButton.SetActive(false);
             audioSource.Play();
+            saveData.settingContainer.setting.musicbgStatus = true;
         }
+        saveData.Save();
     }
 
     public void Option()
@@ -325,7 +605,7 @@ public void Collection()
     {
         scoreHistoryPanel.SetActive(!scoreHistoryPanel.activeSelf);
     }
-    
+
     public void SaveNewPlayerData(TMP_InputField inputField)
     {
         // Tạo dữ liệu mới
@@ -335,38 +615,47 @@ public void Collection()
         newData.money = 0;
         newData.scoreHistory = new List<scoreRecord>();
         newData.ownedItems = new List<int>();
-        newData.currentItems=0; // chua co gi 
+        newData.currentItems = 0; // chua co gi 
+        newData.removeADsStatus = false;
+        newData.LevelCur = 1;
+
+
         //tạo hard data items 
-        Items  ghotSkin = new Items();
-         ghotSkin.idItem =1;
-         ghotSkin.nameItem="ghostSkin";
-         ghotSkin.price=10000;
-         ghotSkin.description="trang phục sự kiện hallowin"; 
-          Items  diver = new Items();
-         diver.idItem =2;
-         diver.nameItem="diver";
-         diver.price=500;
-         diver.description="Người được đào tạo để lặn dưới nước nhằm khảo sát, nghiên cứu, hoặc sửa chữa";
-          Items  Inuit = new Items();
-         Inuit.idItem =3;
-         Inuit.nameItem="InuitSkin";
-         Inuit.price=100;
-         Inuit.description="Tộc người nổi tiếng sống tại các vùng cực Bắc Cực, nổi tiếng với việc xây lều Igloo và cọ mũi thay vì hôn môi";
-          Items  astronaut = new Items();
-         astronaut.idItem =4;
-         astronaut.nameItem="astronaut";
-         astronaut.price=3000;
-         astronaut.description="Những người được đào tạo để du hành và làm việc trong không gian vũ trụ";
+        Items ghotSkin = new Items();
+        ghotSkin.idItem = 1;
+        ghotSkin.nameItem = "ghostSkin";
+        ghotSkin.price = 10000;
+        ghotSkin.description = "trang phục sự kiện hallowin";
+        Items diver = new Items();
+        diver.idItem = 2;
+        diver.nameItem = "diver";
+        diver.price = 500;
+        diver.description = "Người được đào tạo để lặn dưới nước nhằm khảo sát, nghiên cứu, hoặc sửa chữa";
+        Items Inuit = new Items();
+        Inuit.idItem = 3;
+        Inuit.nameItem = "InuitSkin";
+        Inuit.price = 100;
+        Inuit.description = "Tộc người nổi tiếng sống tại các vùng cực Bắc Cực, nổi tiếng với việc xây lều Igloo và cọ mũi thay vì hôn môi";
+        Items astronaut = new Items();
+        astronaut.idItem = 4;
+        astronaut.nameItem = "astronaut";
+        astronaut.price = 3000;
+        astronaut.description = "Những người được đào tạo để du hành và làm việc trong không gian vũ trụ";
 
-         saveData.itemContainer.items.Add(ghotSkin);
-         saveData.itemContainer.items.Add(diver);
-         saveData.itemContainer.items.Add(Inuit);
-         saveData.itemContainer.items.Add(astronaut);
+        saveData.itemContainer.items.Add(ghotSkin);
+        saveData.itemContainer.items.Add(diver);
+        saveData.itemContainer.items.Add(Inuit);
+        saveData.itemContainer.items.Add(astronaut);
 
-         
+
+        //tao du ban dau cho setting
+        Setting setting = new Setting();
+        setting.musicbgStatus = true;
+
+
         // Thêm vào danh sách trong saveData
         saveData.playerContainer.players.Add(newData);
-
+        saveData.settingContainer.setting = setting;
         // Thực hiện ghi xuống file
         saveData.Save();
         // Ẩn form nhập tên sau khi lưu
@@ -375,6 +664,6 @@ public void Collection()
         Debug.Log("New player created and saved: " + newData.playerName);
     }
 
-   
+
 
 }

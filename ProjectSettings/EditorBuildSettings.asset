@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePlay.unity
     guid: 2babaf67f2922bc4fad32ca81dbeac87
+  - enabled: 1
+    path: Assets/Scenes/Level2HalloweenMap.unity
+    guid: ad2c51b3590a0f845a1b309c3ce7b285
+  - enabled: 1
+    path: Assets/Scenes/Level3Ocen.unity
+    guid: 793295f28ed9aa54aabb25297b6bba60
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

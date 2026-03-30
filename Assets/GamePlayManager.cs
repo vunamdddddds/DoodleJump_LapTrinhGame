@@ -19,8 +19,7 @@ public class GamePlayManager : MonoBehaviour
     }
 
     public GameObject player;
-    public GameObject topBar1;
-    public GameObject topBar2;
+  
     public static int curScore=0;
     public GameObject gameOverPanel;
 
@@ -32,6 +31,10 @@ public class GamePlayManager : MonoBehaviour
     public GameObject cameraFollow;
 
     public GameObject gameWinPanel;
+
+//haloween 
+public  GameObject halloweenTheme;
+
     public TextMeshProUGUI curScoreText;
     //game over panel
     public TextMeshProUGUI ScoreGameOverText;
@@ -46,7 +49,6 @@ public class GamePlayManager : MonoBehaviour
     public TextMeshProUGUI ScoreTextGameWin;
 
 
-public static int highScoreGamePlay=0;
 
 // game Pause
 
@@ -84,9 +86,11 @@ public GameObject AstronautSkin;
 
     void Start()
     {   
-        highScoreGamePlay=Manager.highScore;
         SkinHandle();
+
     }
+
+    
 
 
 // Ham xu li skin nguoi choi 
@@ -121,10 +125,21 @@ public void pauseGame()
 
             player.SetActive(false);
             gamePausePanel.SetActive(true);
+            if (halloweenTheme!=null)
+            {
+                          halloweenTheme.SetActive(false);
+
+            }
         }
         else
         {player.SetActive(true);
         gamePausePanel.SetActive(false);
+        if (halloweenTheme!=null)
+            {
+           halloweenTheme.SetActive(true);
+
+            }
+
             
         }
     }
@@ -136,6 +151,7 @@ public void pauseGame()
 
         switch (enumSfxType)
         {
+            
             case EnumSfxType.GroundGreen:
                 audioSource.PlayOneShot(GrountGreenClip);
                 break;
@@ -177,13 +193,17 @@ public void pauseGame()
     // bắt đầu xây hàm game over , tình trạng : đang làm,chưa hoàn thiện
     public void GameOver()
     {        
-         Destroy(player);// hủy đối tượng player khi game over
-        cameraFollow.SetActive(false);
+
+         Destroy(player,5f);// hủy đối tượng player khi game over
+         Platform.springShoeBootValue=0; 
+         cameraFollow.SetActive(false);
          Sfx(EnumSfxType.GameOver);
-        if (curScore > highScoreGamePlay)
+        if (curScore > Manager.highScore)
         {
             saveData.playerContainer.players[0].highScore = curScore;
-        }
+            Manager.highScore=curScore;
+        }          
+
         saveData.playerContainer.players[0].scoreHistory.Add(new scoreRecord
         {
             date = System.DateTime.Now.ToString("yyyy-MM-dd"),
@@ -193,19 +213,29 @@ public void pauseGame()
         saveData.playerContainer.players[0].money += moneyEarned;
         saveData.Save();
         ScoreGameOverText.text = curScore.ToString();
-        HighScoreGameOverText.text = highScoreGamePlay.ToString();
+        HighScoreGameOverText.text =  Manager.highScore.ToString();
         MoneyEarnedGameOverText.text = moneyEarned.ToString();
-        gameOverPanel.SetActive(true);
-        
+        HalloweenThemeHandle();
+        gameOverPanel.SetActive(true);        
+    }
+
+    private void HalloweenThemeHandle()
+    {
+     if (halloweenTheme!=null)
+     {
+        halloweenTheme.SetActive(false);
+     }   
     }
     public void GameWin()
     {  
-     Destroy(player);// hủy đối tượng player khi game over
+     Destroy(player,5f);// hủy đối tượng player khi game over
+              Platform.springShoeBootValue=0;
                cameraFollow.SetActive(false);
        Sfx(EnumSfxType.WinGame);
-        if (curScore >highScoreGamePlay )
+        if (curScore >Manager.highScore)
         {
             saveData.playerContainer.players[0].highScore = curScore;
+            Manager.highScore=curScore;
         }
         saveData.playerContainer.players[0].scoreHistory.Add(new scoreRecord
         {
@@ -214,29 +244,16 @@ public void pauseGame()
         });
         int moneyEarned = curScore / 10; // Ví dụ: mỗi 100 điểm được 1 tiền
         saveData.playerContainer.players[0].money += moneyEarned;
+         saveData.playerContainer.players[0].LevelCur+=1;// tang level
+        Manager.LevelCur=saveData.playerContainer.players[0].LevelCur;
         saveData.Save();
         ScoreTextGameWin.text = curScore.ToString();
-        highScoreTextGameWin.text = highScoreGamePlay.ToString();
+        highScoreTextGameWin.text =Manager.highScore.ToString();
         moneyTextGameWin.text = moneyEarned.ToString();
+        HalloweenThemeHandle();
         gameWinPanel.SetActive(true);
     }
 
-    public void ChangeTopTheme(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("DefaultMap"))
-        {
-            topBar1.SetActive(true);
-            topBar2.SetActive(false);
-            Debug.Log("Collided with DefaultMap");
-
-        }
-        else if (other.gameObject.CompareTag("SnowMap"))
-        {
-            topBar1.SetActive(false);
-            topBar2.SetActive(true);
-            Debug.Log("Collided with SnowMap");
-        }
-    }
 
 
 
